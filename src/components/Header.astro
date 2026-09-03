@@ -12,7 +12,6 @@ import { withBase } from '../utils/path';
 			<HeaderLink href={withBase('/blog/')}>글</HeaderLink>
 			<HeaderLink href={withBase('/tags/')}>태그</HeaderLink>
 			<HeaderLink href={withBase('/search/')}>검색</HeaderLink>
-			<HeaderLink href={withBase('/about/')}>소개</HeaderLink>
 			<a href="https://qwer55252.github.io/" target="_blank" rel="noreferrer">포트폴리오 ↗</a>
 		</div>
 		<button class="theme-toggle" type="button" aria-label="색상 테마 전환" title="색상 테마 전환">◐</button>
@@ -38,7 +37,7 @@ import { withBase } from '../utils/path';
 	@media (max-width: 720px) {
 		nav { gap: 1rem; }
 		.internal-links { gap: .8rem; }
-		.internal-links a:nth-last-child(-n+3) { display: none; }
+		.internal-links a:nth-last-child(-n+2) { display: none; }
 	}
 </style>
 
