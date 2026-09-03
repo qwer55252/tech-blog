@@ -1,0 +1,18 @@
+---
+const today = new Date();
+---
+
+<footer>
+	<div class="shell footer-inner">
+		<p><strong>Sangheon.log</strong><br />배운 것을 내 언어로 다시 씁니다.</p>
+		<p>&copy; {today.getFullYear()} Sang-Heon Jeong</p>
+	</div>
+</footer>
+
+<style>
+	footer { padding: 2.5rem 0 4rem; border-top: 1px solid var(--line); color: var(--muted); }
+	.footer-inner { display: flex; justify-content: space-between; gap: 2rem; }
+	p { margin: 0; font-size: .8rem; }
+	strong { color: var(--text); }
+	@media (max-width: 560px) { .footer-inner { flex-direction: column; } }
+</style>

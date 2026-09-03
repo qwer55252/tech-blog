@@ -1,0 +1,47 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import Header from '../../components/Header.astro';
+import { tagSlug, withBase } from '../../utils/path';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('blog', ({ data }) => !data.draft);
+	const tags = [...new Set(posts.flatMap((post) => post.data.tags))];
+	return tags.map((tag) => ({ params: { tag: tagSlug(tag) }, props: { tag } }));
+}
+
+const { tag } = Astro.props;
+const posts = (await getCollection('blog', ({ data }) => !data.draft && data.tags.includes(tag))).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<!doctype html>
+<html lang="ko">
+	<head><BaseHead title={`#${tag} · Sangheon.log`} description={`${tag} 주제의 학습 기록`} /></head>
+	<body>
+		<Header />
+		<main>
+			<header><a href={withBase('/tags/')}>← 모든 태그</a><p>TOPIC</p><h1>#{tag}</h1><span>{posts.length}개의 기록</span></header>
+			<section>
+				{posts.map((post) => <article><p><FormattedDate date={post.data.pubDate} /></p><h2><a href={withBase(`/blog/${post.id}/`)}>{post.data.title}</a></h2><span>{post.data.description}</span></article>)}
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	main { min-height: 70vh; padding: clamp(3.5rem, 8vw, 6.5rem) 0; }
+	header { margin-bottom: 3rem; }
+	header > a { color: var(--muted); font-size: .82rem; text-decoration: none; }
+	header p { margin: 2.5rem 0 .5rem; color: var(--accent); font-size: .72rem; font-weight: 700; letter-spacing: .15em; }
+	h1 { margin: 0 0 .5rem; font-size: clamp(2.8rem, 7vw, 5rem); letter-spacing: -.065em; }
+	header span, article span { color: var(--muted); }
+	article { padding: 1.5rem 0; border-top: 1px solid var(--line); }
+	article p { margin: 0; color: var(--muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .72rem; }
+	h2 { margin: .45rem 0; font-size: 1.5rem; letter-spacing: -.03em; }
+	h2 a { color: var(--text); text-decoration: none; }
+</style>

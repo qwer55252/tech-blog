@@ -1,0 +1,27 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { withBase } from '../utils/path';
+---
+
+<!doctype html>
+<html lang="ko">
+	<head><BaseHead title="페이지를 찾을 수 없습니다 · Sangheon.log" description="요청한 페이지를 찾을 수 없습니다." image={null} /></head>
+	<body>
+		<Header />
+		<main>
+			<p>404</p>
+			<h1>이 기록은 아직 없습니다.</h1>
+			<a href={withBase()}>홈으로 돌아가기 →</a>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	main { min-height: 70vh; padding: clamp(5rem, 12vw, 10rem) 0; }
+	p { margin: 0 0 .8rem; color: var(--accent); font: 700 .75rem ui-monospace, monospace; letter-spacing: .15em; }
+	h1 { max-width: 700px; margin: 0 0 2rem; font-size: clamp(2.7rem, 7vw, 5rem); letter-spacing: -.065em; }
+	a { color: var(--muted); text-decoration: none; }
+</style>

@@ -1,0 +1,60 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import Header from '../components/Header.astro';
+import { withBase } from '../utils/path';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<!doctype html>
+<html lang="ko">
+	<head><BaseHead title="검색 · Sangheon.log" description="Sangheon.log의 학습 기록 검색" /></head>
+	<body>
+		<Header />
+		<main>
+			<header><p>SEARCH</p><h1>기록 검색</h1></header>
+			<label for="search-input" class="sr-only">검색어</label>
+			<input id="search-input" type="search" placeholder="제목, 설명, 태그로 검색" autocomplete="off" />
+			<p id="result-count" class="count">전체 {posts.length}개의 글</p>
+			<section id="results">
+				{posts.map((post) => <article data-search={`${post.data.title} ${post.data.description} ${post.data.tags.join(' ')}`.toLowerCase()}><p><FormattedDate date={post.data.pubDate} /> · {post.data.tags.join(' · ')}</p><h2><a href={withBase(`/blog/${post.id}/`)}>{post.data.title}</a></h2><span>{post.data.description}</span></article>)}
+			</section>
+		</main>
+		<Footer />
+		<script>
+			const input = document.querySelector<HTMLInputElement>('#search-input');
+			const items = [...document.querySelectorAll<HTMLElement>('[data-search]')];
+			const count = document.querySelector<HTMLElement>('#result-count');
+			input?.addEventListener('input', () => {
+				const query = input.value.trim().toLowerCase();
+				let visible = 0;
+				for (const item of items) {
+					const show = !query || item.dataset.search?.includes(query);
+					item.hidden = !show;
+					if (show) visible++;
+				}
+				if (count) count.textContent = query ? `${visible}개의 검색 결과` : `전체 ${visible}개의 글`;
+			});
+		</script>
+	</body>
+</html>
+
+<style>
+	main { min-height: 70vh; padding: clamp(3.5rem, 8vw, 6.5rem) 0; }
+	header p { margin: 0 0 .5rem; color: var(--accent); font-size: .72rem; font-weight: 700; letter-spacing: .15em; }
+	h1 { margin: 0 0 2.5rem; font-size: clamp(2.8rem, 7vw, 5rem); letter-spacing: -.065em; }
+	input { width: 100%; padding: 1rem 0; border: 0; border-bottom: 2px solid var(--text); outline: 0; background: transparent; color: var(--text); font: inherit; font-size: clamp(1.2rem, 3vw, 1.7rem); }
+	input::placeholder { color: var(--muted); }
+	.count { margin: 1rem 0 3rem; color: var(--muted); font-size: .78rem; }
+	article { padding: 1.5rem 0; border-top: 1px solid var(--line); }
+	article[hidden] { display: none; }
+	article p { margin: 0; color: var(--muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .72rem; }
+	h2 { margin: .45rem 0; font-size: 1.5rem; letter-spacing: -.03em; }
+	h2 a { color: var(--text); text-decoration: none; }
+	article span { color: var(--muted); }
+</style>

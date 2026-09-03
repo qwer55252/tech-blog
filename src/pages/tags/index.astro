@@ -1,0 +1,39 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import { tagSlug, withBase } from '../../utils/path';
+
+const posts = await getCollection('blog', ({ data }) => !data.draft);
+const counts = new Map<string, number>();
+for (const post of posts) for (const tag of post.data.tags) counts.set(tag, (counts.get(tag) ?? 0) + 1);
+const tags = [...counts].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+---
+
+<!doctype html>
+<html lang="ko">
+	<head><BaseHead title="태그 · Sangheon.log" description="주제별로 학습 기록 찾아보기" /></head>
+	<body>
+		<Header />
+		<main>
+			<header><p>TOPICS</p><h1>태그</h1><span>관심 있는 주제부터 기록을 탐색해 보세요.</span></header>
+			<div class="tag-cloud">
+				{tags.map(([tag, count]) => <a href={withBase(`/tags/${tagSlug(tag)}/`)}><strong>#{tag}</strong><span>{count}개의 글</span></a>)}
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	main { min-height: 70vh; padding: clamp(3.5rem, 8vw, 6.5rem) 0; }
+	header { margin-bottom: 3rem; }
+	header p { margin: 0 0 .6rem; color: var(--accent); font-size: .72rem; font-weight: 700; letter-spacing: .15em; }
+	h1 { margin: 0 0 .6rem; font-size: clamp(2.8rem, 7vw, 5rem); letter-spacing: -.065em; }
+	header span { color: var(--muted); }
+	.tag-cloud { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: .8rem; }
+	.tag-cloud a { display: flex; padding: 1.1rem; justify-content: space-between; gap: 1rem; border: 1px solid var(--line); border-radius: 8px; color: var(--text); text-decoration: none; }
+	.tag-cloud a:hover { border-color: var(--accent); }
+	.tag-cloud span { color: var(--muted); font-size: .78rem; }
+</style>

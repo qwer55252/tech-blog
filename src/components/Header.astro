@@ -1,0 +1,53 @@
+---
+import { SITE_TITLE } from '../consts';
+import HeaderLink from './HeaderLink.astro';
+import { withBase } from '../utils/path';
+---
+
+<header>
+	<nav class="shell" aria-label="주요 메뉴">
+		<a class="brand" href={withBase()}>{SITE_TITLE}</a>
+		<div class="internal-links">
+			<HeaderLink href={withBase()}>홈</HeaderLink>
+			<HeaderLink href={withBase('/blog/')}>글</HeaderLink>
+			<HeaderLink href={withBase('/tags/')}>태그</HeaderLink>
+			<HeaderLink href={withBase('/search/')}>검색</HeaderLink>
+			<HeaderLink href={withBase('/about/')}>소개</HeaderLink>
+			<a href="https://qwer55252.github.io/" target="_blank" rel="noreferrer">포트폴리오 ↗</a>
+		</div>
+		<button class="theme-toggle" type="button" aria-label="색상 테마 전환" title="색상 테마 전환">◐</button>
+	</nav>
+</header>
+
+<style>
+	header {
+		position: sticky;
+		top: 0;
+		z-index: 10;
+		border-bottom: 1px solid var(--line);
+		background: color-mix(in srgb, var(--bg) 92%, transparent);
+		backdrop-filter: blur(14px);
+	}
+	nav { display: flex; min-height: 64px; align-items: center; gap: 2rem; }
+	nav a { color: var(--muted); font-size: .92rem; text-decoration: none; }
+	nav a:hover, nav a.active { color: var(--text); }
+	.brand { color: var(--text); font-size: 1.05rem; font-weight: 700; letter-spacing: -.03em; }
+	.internal-links { display: flex; align-items: center; gap: 1.25rem; }
+	.theme-toggle { width: 2rem; height: 2rem; margin-left: auto; border: 1px solid var(--line); border-radius: 50%; background: transparent; color: var(--muted); cursor: pointer; }
+	.theme-toggle:hover { color: var(--text); border-color: var(--muted); }
+	@media (max-width: 720px) {
+		nav { gap: 1rem; }
+		.internal-links { gap: .8rem; }
+		.internal-links a:nth-last-child(-n+3) { display: none; }
+	}
+</style>
+
+<script is:inline>
+	const root = document.documentElement;
+	const saved = localStorage.getItem('theme');
+	if (saved === 'dark' || (!saved && matchMedia('(prefers-color-scheme: dark)').matches)) root.dataset.theme = 'dark';
+	document.querySelector('.theme-toggle')?.addEventListener('click', () => {
+		root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+		localStorage.setItem('theme', root.dataset.theme);
+	});
+</script>

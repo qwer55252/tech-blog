@@ -1,0 +1,59 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import Header from '../../components/Header.astro';
+import { SITE_DESCRIPTION } from '../../consts';
+import { tagSlug, withBase } from '../../utils/path';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<!doctype html>
+<html lang="ko">
+	<head><BaseHead title={`전체 글 · Sangheon.log`} description={SITE_DESCRIPTION} /></head>
+	<body>
+		<Header />
+		<main>
+			<header class="page-head">
+				<p>ARCHIVE · {posts.length} NOTES</p>
+				<h1>배운 것들의 기록</h1>
+				<span>완벽한 정답보다, 이해해 가는 과정을 남깁니다.</span>
+			</header>
+			<section class="archive" aria-label="전체 글">
+				{posts.map((post, index) => (
+					<article>
+						<span class="index">{String(index + 1).padStart(2, '0')}</span>
+						<div>
+							<p class="meta"><FormattedDate date={post.data.pubDate} />{post.data.series && ` · ${post.data.series}`}</p>
+							<h2><a href={withBase(`/blog/${post.id}/`)}>{post.data.title}</a></h2>
+							<p class="description">{post.data.description}</p>
+							<div class="tags">{post.data.tags.map((tag) => <a href={withBase(`/tags/${tagSlug(tag)}/`)}>#{tag}</a>)}</div>
+						</div>
+					</article>
+				))}
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	main { padding: clamp(3.5rem, 8vw, 6.5rem) 0; }
+	.page-head { max-width: 720px; margin-bottom: 4.5rem; }
+	.page-head > p { margin: 0 0 .8rem; color: var(--accent); font-size: .72rem; font-weight: 700; letter-spacing: .15em; }
+	h1 { margin: 0 0 .8rem; font-size: clamp(2.7rem, 7vw, 5rem); letter-spacing: -.065em; }
+	.page-head span { color: var(--muted); }
+	.archive article { display: grid; padding: 1.8rem 0; border-top: 1px solid var(--line); grid-template-columns: 3rem minmax(0, 1fr); gap: 1rem; }
+	.index, .meta { color: var(--muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .72rem; }
+	.meta { margin: 0; }
+	h2 { margin: .45rem 0 .45rem; font-size: clamp(1.35rem, 3vw, 1.9rem); letter-spacing: -.035em; }
+	h2 a { color: var(--text); text-decoration: none; }
+	.description { max-width: 700px; margin: 0; color: var(--muted); font-size: .92rem; }
+	.tags { display: flex; margin-top: .7rem; flex-wrap: wrap; gap: .7rem; }
+	.tags a { color: var(--accent); font-size: .72rem; text-decoration: none; }
+	@media (max-width: 560px) { .archive article { grid-template-columns: 1.7rem minmax(0, 1fr); } }
+</style>
