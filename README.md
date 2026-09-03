@@ -1,6 +1,6 @@
 # Sangheon.log
 
-AI와 음성 기술을 배우고, 실험하고, 이해한 만큼 기록하는 개인 기술 블로그입니다.
+AI와 음성 기술에 관한 개인 학습 기록입니다.
 
 - 사이트: <https://qwer55252.github.io/tech-blog/>
 - 프레임워크: Astro
