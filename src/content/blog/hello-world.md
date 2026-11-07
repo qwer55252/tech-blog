@@ -1,6 +1,6 @@
 ---
 title: '기록을 시작하며'
-description: '배운 것을 흘려보내지 않고, 내 언어로 다시 설명하기 위한 기술 블로그를 시작한다.'
+description: ''
 pubDate: '2026-09-03'
 tags: ['Blog', 'Learning']
 draft: false
