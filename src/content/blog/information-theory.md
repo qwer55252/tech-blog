@@ -1,5 +1,5 @@
 ---
-title: '3. 정보이론 공부'
+title: '정보이론 (1)'
 description: 'Entropy, Conditional Entropy, Mutual Information, KL Divergence, Cross Entropy에 대한 공부 기록.'
 pubDate: '2026-11-07'
 tags: ['Information Theory', 'Learning']
