@@ -13,7 +13,7 @@ draft: false
 
 - 모델 구조
   - Sotmax 뒷단에 loss 형태로 붙음
-    <img src="/tech-blog/images/speech-recognition-models/ctc-architecture.png" alt="ctc-architecture" loading="lazy" />
+    <img src="/tech-blog/images/speech-recognition-models/ctc-architecture.png" alt="ctc-architecture" loading="lazy" width="340" style="display: block; max-width: 100%; height: auto; margin: 1rem auto;" />
 - 학습 방법
   - text 형태의 정답 transcript와 frame-level의 음성 신호는 길이가 다르고, 각 토큰이 어느 프레임에 대응하는지 알 수 없다.
   - 그래서 하나의 정답 transcript에 대응하는 여러 alignment($\pi$)가 존재한다.
@@ -43,7 +43,7 @@ draft: false
 ## 1-c. RNN-T
 
 - 모델 구조
-  <img src="/tech-blog/images/speech-recognition-models/rnnt-architecture.png" alt="rnnt-architecture" loading="lazy" width="500" />
+  <img src="/tech-blog/images/speech-recognition-models/rnnt-architecture.png" alt="rnnt-architecture" loading="lazy" width="360" style="display: block; max-width: 100%; height: auto; margin: 1rem auto;" />
 
   - <b>Encoder</b>
     - 음성을 입력받아 시간별 음성 표현을 만든다.
@@ -115,9 +115,9 @@ draft: false
 <details open>
 <summary>1. wav2vec 2.0</summary>
 
-<img src="/tech-blog/images/speech-recognition-models/wav2vec2-overview.png" alt="wav2vec2-overview" loading="lazy" />
+<img src="/tech-blog/images/speech-recognition-models/wav2vec2-overview.png" alt="wav2vec2-overview" loading="lazy" width="560" style="display: block; max-width: 100%; height: auto; margin: 1rem auto;" />
 
-<img src="/tech-blog/images/speech-recognition-models/wav2vec2-detail.png" alt="wav2vec2-detail" loading="lazy" />
+<img src="/tech-blog/images/speech-recognition-models/wav2vec2-detail.png" alt="wav2vec2-detail" loading="lazy" width="560" style="display: block; max-width: 100%; height: auto; margin: 1rem auto;" />
 </details>
 
 <details open>
@@ -125,10 +125,10 @@ draft: false
 
 <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-start;">
 <div style="flex: 1 1 260px; min-width: 0;">
-<img src="/tech-blog/images/speech-recognition-models/hubert-overview.png" alt="hubert-overview" loading="lazy" />
+<img src="/tech-blog/images/speech-recognition-models/hubert-overview.png" alt="hubert-overview" loading="lazy" width="320" style="display: block; max-width: 100%; height: auto; margin: 1rem auto;" />
 </div>
 <div style="flex: 1 1 260px; min-width: 0;">
-<img src="/tech-blog/images/speech-recognition-models/hubert-detail.png" alt="hubert-detail" loading="lazy" />
+<img src="/tech-blog/images/speech-recognition-models/hubert-detail.png" alt="hubert-detail" loading="lazy" width="320" style="display: block; max-width: 100%; height: auto; margin: 1rem auto;" />
 </div>
 </div>
 
