@@ -33,7 +33,7 @@ draft: false
     - 이때문에 동음이의어를 출력하는 오류가 발생한다.
     - 외부 LM으로 이를 보완할 수 있다.
   - 구조가 단순하다.
-  - <b><mark>alignment가 구조적으로 monotonic 하다.</mark></b>
+  - <b>alignment가 구조적으로 monotonic 하다.</b>
   - 동일 토큰을 연속으로 출력하려면 사이에 blank가 필요하다.
 
 ## 1-b. AED(Attention-based Encoder Decoder)
