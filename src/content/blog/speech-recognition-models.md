@@ -6,7 +6,6 @@ tags: ['Speech', 'ASR', 'Learning']
 draft: false
 ---
 
-### <mark>음성인식 모델들 싹 정리해보자</mark>
 
 # 1. E2E ASR - AED, CTC, RNN-T
 
@@ -44,7 +43,7 @@ draft: false
 ## 1-c. RNN-T
 
 - 모델 구조
-  <img src="/tech-blog/images/speech-recognition-models/rnnt-architecture.png" alt="rnnt-architecture" loading="lazy" />
+  <img src="/tech-blog/images/speech-recognition-models/rnnt-architecture.png" alt="rnnt-architecture" loading="lazy" width="500" />
 
   - <b>Encoder</b>
     - 음성을 입력받아 시간별 음성 표현을 만든다.
