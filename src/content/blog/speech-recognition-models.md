@@ -1,6 +1,6 @@
 ---
 title: '음성인식 모델 정리'
-description: 'CTC, AED, RNN-T와 wav2vec 2.0, HuBERT에 대한 공부 기록.'
+description: 'CTC, AED, RNN-T에 대한 공부 기록.'
 pubDate: '2026-11-08'
 tags: ['Speech', 'ASR', 'Learning']
 draft: false
@@ -109,28 +109,3 @@ draft: false
     - 다만 RNN-T loss 만으로 streaming이 보장되지는 않는다.
     - Encoder도 미래 음성을 제한적으로 참조하도록 설계해야 한다.
     - 원 논문에서는 양방향 인코더를 사용했지만, 단방향 인코더를 사용하거나 미래 음성을 제한하는 별도의 청크 처리가 필요하다.
-
-# 2. SSL 모델 - wav2vec 2.0, HuBERT
-
-<details open>
-<summary>1. wav2vec 2.0</summary>
-
-<img src="/tech-blog/images/speech-recognition-models/wav2vec2-overview.png" alt="wav2vec2-overview" loading="lazy" width="560" style="display: block; max-width: 100%; height: auto; margin: 1rem auto;" />
-
-<img src="/tech-blog/images/speech-recognition-models/wav2vec2-detail.png" alt="wav2vec2-detail" loading="lazy" width="560" style="display: block; max-width: 100%; height: auto; margin: 1rem auto;" />
-</details>
-
-<details open>
-<summary>2. HuBERT</summary>
-
-<div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-start;">
-<div style="flex: 1 1 260px; min-width: 0;">
-<img src="/tech-blog/images/speech-recognition-models/hubert-overview.png" alt="hubert-overview" loading="lazy" width="320" style="display: block; max-width: 100%; height: auto; margin: 1rem auto;" />
-</div>
-<div style="flex: 1 1 260px; min-width: 0;">
-<img src="/tech-blog/images/speech-recognition-models/hubert-detail.png" alt="hubert-detail" loading="lazy" width="320" style="display: block; max-width: 100%; height: auto; margin: 1rem auto;" />
-</div>
-</div>
-
-- 음성에서 pseudo-label을 만든 다음 BERT처럼 masked prediction을 한다.
-</details>
